@@ -18,11 +18,11 @@ public class App implements Runnable {
     private String filepath2;
 
     @Override
-    public void run() {
+    public void call() {
         System.out.println("doing something");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
