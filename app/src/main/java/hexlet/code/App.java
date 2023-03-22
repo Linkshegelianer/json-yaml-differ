@@ -18,11 +18,22 @@ public class App implements Runnable {
     private String filepath2;
 
     @Override
-    public void call() {
-        System.out.println("doing something");
+    public void run() throws Exception {
+        Differ.generate();
+
+        try {
+            String formattedDiff = Differ.generate(filePath1, filePath2, formatName);
+            // Вывод на экран происходит здесь, а не внутри библиотеки
+            System.out.println(formattedDiff);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return ERROR_EXIT_CODE; //1
+        }
+
+        return SUCCESS_EXIT_CODE; //0
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
     }
