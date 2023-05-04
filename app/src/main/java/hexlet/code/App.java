@@ -13,10 +13,10 @@ public class App implements Callable<Integer> {
     private String format;
 
     @Parameters(index = "0", description = "path to first file")
-    private String filepath1;
+    private String filePath1;
 
     @Parameters(index = "1", description = "path to second file")
-    private String filepath2;
+    private String filePath2;
 
     @Override
     public Integer call() throws Exception {
