@@ -16,7 +16,11 @@ class DifferTest {
 
     private static final String STR_JSON_PATH_1 = "src/test/resources/json/file1.json";
     private static final String STR_JSON_PATH_2 = "src/test/resources/json/file2.json";
+
+    private static final String STR_YAML_PATH_1 = "src/test/resources/yaml/file1.yml";
+    private static final String STR_YAML_PATH_2 = "src/test/resources/yaml/file1.yml";
     private static final String EXPECTED_JSON_STR_PATH = "src/test/resources/expected/expected.json";
+    private static final String EXPECTED_YAML_STR_PATH = "src/test/resources/expected/expected.yml";
     private static String expectedJsonString;
 
     @BeforeAll
