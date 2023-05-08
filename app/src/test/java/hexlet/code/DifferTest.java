@@ -61,7 +61,6 @@ class DifferTest {
         assertEquals(expected, actual);
     }
 
-
     private static Stream<Arguments> argsStyles() {
         return Stream.of(
                 arguments(expectedStylish, STYLISH_FORMAT),
@@ -69,4 +68,9 @@ class DifferTest {
                 arguments(expectedJson, JSON_FORMAT)
         );
     }
+
+//    @Test
+//    void testEqualFiles() throws IOException {
+//
+//    }
 }

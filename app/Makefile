@@ -10,7 +10,7 @@ FORMAT3?=json
 
 .PHONY: build
 
-run-dist: build test lint test-report run # Build, check and run app
+run-dist: build test lint # Build & check whether works correctly
 
 run: # Run app
 	./build/install/app/bin/app -f $(FORMAT1) $(FILEPATH1) $(FILEPATH2)
@@ -20,6 +20,9 @@ run-json-stylish: # Run app
 
 run-yaml-plain: # Run app
 	./build/install/app/bin/app -f $(FORMAT2) $(FILEPATH3) $(FILEPATH4)
+
+run-json-json: # Run app
+	./build/install/app/bin/app -f $(FORMAT3) $(FILEPATH1) $(FILEPATH1)
 
 build: # Build app
 	./gradlew clean
@@ -31,5 +34,6 @@ test: # Run tests
 lint: # Check code style
 	./gradlew checkstyleMain checkstyleTest
 
-test-report: # Check code coverage
-	./gradlew jacocoTestReport
+help: # Show info
+	./build/install/app/bin/app -h
+
