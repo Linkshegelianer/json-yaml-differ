@@ -22,7 +22,7 @@ jobs:
           build-root-directory: app
 
       - run: chmod +x app/gradlew
-      - run: make -C app run-diast
+      - run: make -C app run-dist
 
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
