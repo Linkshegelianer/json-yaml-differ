@@ -1,28 +1,122 @@
 [
   {
-    "key" : "follow",
-    "status" : "deleted",
-    "value" : false
-  },
-  {
-    "key" : "host",
+    "key" : "chars1",
     "status" : "unmodified",
-    "value" : "hexlet.io"
+    "value" : [
+      "a",
+      "b",
+      "c"
+    ]
   },
   {
-    "key" : "proxy",
-    "status" : "deleted",
-    "value" : "123.234.53.22"
-  },
-  {
-    "key" : "timeout",
+    "key" : "chars2",
     "status" : "updated",
-    "oldValue" : 50,
-    "newValue" : 20
+    "oldValue" : [
+      "d",
+      "e",
+      "f"
+    ],
+    "newValue" : false
   },
   {
-    "key" : "verbose",
+    "key" : "checked",
+    "status" : "updated",
+    "oldValue" : false,
+    "newValue" : true
+  },
+  {
+    "key" : "default",
+    "status" : "updated",
+    "oldValue" : null,
+    "newValue" : [
+      "value1",
+      "value2"
+    ]
+  },
+  {
+    "key" : "id",
+    "status" : "updated",
+    "oldValue" : 45,
+    "newValue" : null
+  },
+  {
+    "key" : "key1",
+    "status" : "deleted",
+    "value" : "value1"
+  },
+  {
+    "key" : "key2",
     "status" : "added",
-    "value" : true
+    "value" : "value2"
+  },
+  {
+    "key" : "numbers1",
+    "status" : "unmodified",
+    "value" : [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "key" : "numbers2",
+    "status" : "updated",
+    "oldValue" : [
+      2,
+      3,
+      4,
+      5
+    ],
+    "newValue" : [
+      22,
+      33,
+      44,
+      55
+    ]
+  },
+  {
+    "key" : "numbers3",
+    "status" : "deleted",
+    "value" : [
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "key" : "numbers4",
+    "status" : "added",
+    "value" : [
+      4,
+      5,
+      6
+    ]
+  },
+  {
+    "key" : "obj1",
+    "status" : "added",
+    "value" : {
+      "nestedKey" : "value",
+      "isNested" : true
+    }
+  },
+  {
+    "key" : "setting1",
+    "status" : "updated",
+    "oldValue" : "Some value",
+    "newValue" : "Another value"
+  },
+  {
+    "key" : "setting2",
+    "status" : "updated",
+    "oldValue" : 200,
+    "newValue" : 300
+  },
+  {
+    "key" : "setting3",
+    "status" : "updated",
+    "oldValue" : true,
+    "newValue" : "none"
   }
 ]

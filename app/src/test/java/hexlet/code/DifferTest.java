@@ -1,13 +1,18 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class DifferTest {
 
@@ -27,72 +32,42 @@ class DifferTest {
 
     private static final String JSON_FORMAT = "json";
 
+    private static String expectedStylish;
+    private static String expectedPlain;
+    private static String expectedJson;
 
-    @Test // fine
-    void testStylishJson() throws IOException {
+
+    @BeforeAll
+    static void init() throws IOException {
         Path stylishFilePath = Paths.get(EXPECTED_STYLISH_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(stylishFilePath);
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT);
-        assertEquals(expected, actual);
-    }
-
-    @Test // fine
-    void testStylishYaml() throws IOException {
-        Path stylishFilePath = Paths.get(EXPECTED_STYLISH_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(stylishFilePath);
-        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, STYLISH_FORMAT);
-        assertEquals(expected, actual);
-    }
-
-    @Test // fine
-    void testPlainJson() throws IOException {
         Path plainFilePath = Paths.get(EXPECTED_PLAIN_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(plainFilePath);
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, PLAIN_FORMAT);
+        Path jsonFilePath = Paths.get(EXPECTED_JSON_PATH).toAbsolutePath().normalize();
+        expectedStylish = Files.readString(stylishFilePath);
+        expectedPlain = Files.readString(plainFilePath);
+        expectedJson = Files.readString(jsonFilePath);
+    }
+
+    @ParameterizedTest
+    @MethodSource("argsStyles")
+    void testJsonInput(String expected, String format) throws IOException {
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, format);
         assertEquals(expected, actual);
     }
 
-    @Test // fine
-    void testPlainYaml() throws IOException {
-        Path plainFilePath = Paths.get(EXPECTED_PLAIN_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(plainFilePath);
-        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, PLAIN_FORMAT);
+    @ParameterizedTest
+    @MethodSource("argsStyles")
+    void testYamlInput(String expected, String format) throws IOException {
+        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, format);
         assertEquals(expected, actual);
     }
 
-    @Test // fine
-    void testJsonToJson() throws IOException {
-        Path plainFilePath = Paths.get(EXPECTED_JSON_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(plainFilePath);
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, JSON_FORMAT);
-        assertEquals(expected, actual);
+
+    private static Stream<Arguments> argsStyles() {
+        return Stream.of(
+                arguments(expectedStylish, STYLISH_FORMAT),
+                arguments(expectedPlain, PLAIN_FORMAT),
+                arguments(expectedJson, JSON_FORMAT)
+        );
     }
 
-    @Test // fine
-    void testYamlToJson() throws IOException {
-        Path plainFilePath = Paths.get(EXPECTED_JSON_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(plainFilePath);
-        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, JSON_FORMAT);
-        assertEquals(expected, actual);
-    }
-
-//    @Test
-//    void testJsonWrite() throws IOException {
-//        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, JSON_FORMAT);
-//        String EXPECTED_JSON_PATH = "src/test/resources/expected/expectedJson.json";
-//        BufferedWriter writer = new BufferedWriter(new FileWriter(EXPECTED_JSON_PATH));
-//        writer.write(actual);
-//        writer.close();
-//    }
-
-
-//    @Test
-//    void testDiffJson() throws IOException, JsonProcessingException {
-//        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, jsonFormat);
-////        System.out.println("actual: " + actual);
-//        ObjectMapper mapper = new ObjectMapper();
-//        String actualJsonString = mapper.writeValueAsString(actual);
-////        System.out.println("actualJsonString: " + actualJsonString);
-//        assertEquals(expectedJsonString, actualJsonString);
-//    }
 }
