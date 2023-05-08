@@ -20,6 +20,7 @@ class DifferTest {
 
     private static final String EXPECTED_PLAIN_PATH = "src/test/resources/expected/expectedPlain.txt";
 
+    private static final String EXPECTED_JSON_PATH = "src/test/resources/expected/expectedJson.json";
 
     private static final String STYLISH_FORMAT = "stylish";
     private static final String PLAIN_FORMAT = "plain";
@@ -60,19 +61,26 @@ class DifferTest {
     }
 
     @Test // fine
-    void testJsontoJson() throws IOException {
-        Path plainFilePath = Paths.get(EXPECTED_PLAIN_PATH).toAbsolutePath().normalize();
+    void testJsonToJson() throws IOException {
+        Path plainFilePath = Paths.get(EXPECTED_JSON_PATH).toAbsolutePath().normalize();
         String expected = Files.readString(plainFilePath);
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, PLAIN_FORMAT);
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, JSON_FORMAT);
         assertEquals(expected, actual);
     }
 
+    @Test // fine
+    void testYamlToJson() throws IOException {
+        Path plainFilePath = Paths.get(EXPECTED_JSON_PATH).toAbsolutePath().normalize();
+        String expected = Files.readString(plainFilePath);
+        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, JSON_FORMAT);
+        assertEquals(expected, actual);
+    }
 
 //    @Test
-//    void testPlainWrite() throws IOException {
-//        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, PLAIN_FORMAT);
-//        String EXPECTED_PLAIN_PATH = "src/test/resources/expected/expectedPlain.txt";
-//        BufferedWriter writer = new BufferedWriter(new FileWriter(EXPECTED_PLAIN_PATH));
+//    void testJsonWrite() throws IOException {
+//        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, JSON_FORMAT);
+//        String EXPECTED_JSON_PATH = "src/test/resources/expected/expectedJson.json";
+//        BufferedWriter writer = new BufferedWriter(new FileWriter(EXPECTED_JSON_PATH));
 //        writer.write(actual);
 //        writer.close();
 //    }
