@@ -22,6 +22,6 @@ jobs:
           build-root-directory: app
 
         - run: chmod +x app/gradlew
-        - run: make -C app build
-        - run: make -C app test
-        - run: make -C app lint
+        - run: make build
+        - run: make test
+        - run: make lint
