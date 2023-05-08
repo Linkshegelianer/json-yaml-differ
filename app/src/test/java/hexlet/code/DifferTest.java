@@ -2,8 +2,6 @@ package hexlet.code;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,30 +15,67 @@ class DifferTest {
     private static final String STR_JSON_PATH_2 = "src/test/resources/json/file2.json";
 
     private static final String STR_YAML_PATH_1 = "src/test/resources/yaml/file1.yml";
-    private static final String STR_YAML_PATH_2 = "src/test/resources/yaml/file1.yml";
-    private static final String EXPECTED_JSON_STR_PATH = "src/test/resources/expected/expectedJson.txt";
-    private static final String EXPECTED_YAML_STR_PATH = "src/test/resources/expected/expected.yml";
-    private static String expectedJsonString;
+    private static final String STR_YAML_PATH_2 = "src/test/resources/yaml/file2.yml";
+    private static final String EXPECTED_STYLISH_PATH = "src/test/resources/expected/expectedStylish.txt";
+
+    private static final String EXPECTED_PLAIN_PATH = "src/test/resources/expected/expectedPlain.txt";
+
+
     private static final String STYLISH_FORMAT = "stylish";
+    private static final String PLAIN_FORMAT = "plain";
+
+    private static final String JSON_FORMAT = "json";
 
 
-    @Test
-    void testDiffJson() throws IOException {
-        Path jsonFilePath = Paths.get(EXPECTED_JSON_STR_PATH).toAbsolutePath().normalize();
-        String expected = Files.readString(jsonFilePath);
+    @Test // fine
+    void testStylishJson() throws IOException {
+        Path stylishFilePath = Paths.get(EXPECTED_STYLISH_PATH).toAbsolutePath().normalize();
+        String expected = Files.readString(stylishFilePath);
         String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT);
         assertEquals(expected, actual);
     }
 
-    @Test
-    void testDiffJsonWrite() throws IOException {
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT);
-        String pathExpectedWrite = "src/test/resources/expected/expectedWrite.txt";
-        BufferedWriter writer = new BufferedWriter(new FileWriter(pathExpectedWrite));
-        writer.write(actual);
-        writer.close();
+    @Test // fine
+    void testStylishYaml() throws IOException {
+        Path stylishFilePath = Paths.get(EXPECTED_STYLISH_PATH).toAbsolutePath().normalize();
+        String expected = Files.readString(stylishFilePath);
+        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, STYLISH_FORMAT);
+        assertEquals(expected, actual);
     }
 
+    @Test // fine
+    void testPlainJson() throws IOException {
+        Path plainFilePath = Paths.get(EXPECTED_PLAIN_PATH).toAbsolutePath().normalize();
+        String expected = Files.readString(plainFilePath);
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, PLAIN_FORMAT);
+        assertEquals(expected, actual);
+    }
+
+    @Test // fine
+    void testPlainYaml() throws IOException {
+        Path plainFilePath = Paths.get(EXPECTED_PLAIN_PATH).toAbsolutePath().normalize();
+        String expected = Files.readString(plainFilePath);
+        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, PLAIN_FORMAT);
+        assertEquals(expected, actual);
+    }
+
+    @Test // fine
+    void testJsontoJson() throws IOException {
+        Path plainFilePath = Paths.get(EXPECTED_PLAIN_PATH).toAbsolutePath().normalize();
+        String expected = Files.readString(plainFilePath);
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, PLAIN_FORMAT);
+        assertEquals(expected, actual);
+    }
+
+
+//    @Test
+//    void testPlainWrite() throws IOException {
+//        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, PLAIN_FORMAT);
+//        String EXPECTED_PLAIN_PATH = "src/test/resources/expected/expectedPlain.txt";
+//        BufferedWriter writer = new BufferedWriter(new FileWriter(EXPECTED_PLAIN_PATH));
+//        writer.write(actual);
+//        writer.close();
+//    }
 
 
 //    @Test
