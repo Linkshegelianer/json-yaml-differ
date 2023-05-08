@@ -24,3 +24,8 @@ jobs:
           arguments: build
           gradle-version: 7.5
           build-root-directory: app
+
+        - run: chmod +x app/gradlew
+        - run: make -C app build
+        - run: make -C app test
+        - run: make -C app lint
