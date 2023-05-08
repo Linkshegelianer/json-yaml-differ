@@ -37,3 +37,6 @@ lint: # Check code style
 help: # Show info
 	./build/install/app/bin/app -h
 
+test-report: # Check code coverage
+	./gradlew jacocoTestReport
+
