@@ -1,9 +1,9 @@
 package hexlet.code;
 
 import hexlet.code.formatter.Formatter;
-import hexlet.code.formatter.JsonFormatter;
-import hexlet.code.parser.JsonParser;
+import hexlet.code.formatter.FormatterFactory;
 import hexlet.code.parser.Parser;
+import hexlet.code.parser.ParserFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,24 +11,29 @@ import java.util.Map;
 
 public class Differ {
 
-    public static String generate(String filePath1, String filePath2) throws IOException, UnsupportedOperationException {
-        String extension1 = FileReader.getFileExtension(filePath1);
-        String extension2 = FileReader.getFileExtension(filePath2);
-        if (!extension2.equals(extension1)) {
-            throw new UnsupportedOperationException("Provided files have different extensions");
+    private static final String DEFAULT_FORMAT = "stylish";
+
+    public static String generate(String pathString1, String pathString2, String format)
+            throws IOException, UnsupportedOperationException {
+        String extension1 = FileReader.getFileExtension(pathString1);
+        String extension2 = FileReader.getFileExtension(pathString2);
+        if (!extension1.equals(extension2)) {
+            throw new UnsupportedOperationException("Unable to match files with different extensions!");
         }
-
-        Map<String, Object> map1 = getFileData(filePath1);
-        Map<String, Object> map2 = getFileData(filePath2);
-
+        Map<String, Object> map1 = getFileData(pathString1, extension1);
+        Map<String, Object> map2 = getFileData(pathString2, extension2);
         List<Map<String, Object>> diffList = DiffBuilder.build(map1, map2);
-        Formatter formatter = new JsonFormatter();
+        Formatter formatter = FormatterFactory.getFormatter(format);
         return formatter.format(diffList);
     }
 
-    private static Map<String, Object> getFileData(String pathString) throws IOException {
+    public static String generate(String pathString1, String pathString2) throws IOException {
+        return generate(pathString1, pathString2, DEFAULT_FORMAT);
+    }
+
+    private static Map<String, Object> getFileData(String pathString, String extension) throws IOException {
         String content = FileReader.read(pathString);
-        Parser parser = new JsonParser();
+        Parser parser = ParserFactory.getParser(extension);
         return parser.parse(content);
     }
 }

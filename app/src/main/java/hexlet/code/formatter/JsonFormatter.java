@@ -12,18 +12,12 @@ import java.util.Map;
 public class JsonFormatter implements Formatter {
 
     @Override
-    public String format(List<Map<String, Object>> diff) throws JsonProcessingException {
+    public String format(List<Map<String, Object>> mapList) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-//        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(diff);
-//        return json;
-
-
-
-        mapper.enable(SerializationFeature.INDENT_OUTPUT); // pretty-print the output
-        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter(); // default implementation for pretty-printing JSON
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
         prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
-        return mapper.writer(prettyPrinter).writeValueAsString(diff);
-//        return mapper.writeValueAsString(diff);
+        return mapper.writer(prettyPrinter).writeValueAsString(mapList);
     }
 
 }

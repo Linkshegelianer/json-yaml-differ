@@ -1,10 +1,9 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -19,24 +18,38 @@ class DifferTest {
 
     private static final String STR_YAML_PATH_1 = "src/test/resources/yaml/file1.yml";
     private static final String STR_YAML_PATH_2 = "src/test/resources/yaml/file1.yml";
-    private static final String EXPECTED_JSON_STR_PATH = "src/test/resources/expected/expected.json";
+    private static final String EXPECTED_JSON_STR_PATH = "src/test/resources/expected/expectedJson.txt";
     private static final String EXPECTED_YAML_STR_PATH = "src/test/resources/expected/expected.yml";
     private static String expectedJsonString;
+    private static final String STYLISH_FORMAT = "stylish";
 
-    @BeforeAll
-    static void init() throws IOException {
-        // absolute path is a path that starts from the floor of the file system
+
+    @Test
+    void testDiffJson() throws IOException {
         Path jsonFilePath = Paths.get(EXPECTED_JSON_STR_PATH).toAbsolutePath().normalize();
-        expectedJsonString = Files.readString(jsonFilePath);
+        String expected = Files.readString(jsonFilePath);
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void testDiffJson() throws IOException, JsonProcessingException {
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2);
-        System.out.println("actual: " + actual);
-        ObjectMapper mapper = new ObjectMapper();
-        String actualJsonString = mapper.writeValueAsString(actual);
-        System.out.println("actualJsonString: " + actualJsonString);
-        assertEquals(expectedJsonString, actualJsonString);
+    void testDiffJsonWrite() throws IOException {
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT);
+        String pathExpectedWrite = "src/test/resources/expected/expectedWrite.txt";
+        BufferedWriter writer = new BufferedWriter(new FileWriter(pathExpectedWrite));
+        writer.write(actual);
+        writer.close();
     }
+
+
+
+//    @Test
+//    void testDiffJson() throws IOException, JsonProcessingException {
+//        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, jsonFormat);
+////        System.out.println("actual: " + actual);
+//        ObjectMapper mapper = new ObjectMapper();
+//        String actualJsonString = mapper.writeValueAsString(actual);
+////        System.out.println("actualJsonString: " + actualJsonString);
+//        assertEquals(expectedJsonString, actualJsonString);
+//    }
 }
