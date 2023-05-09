@@ -14,10 +14,10 @@ public class JsonFormatter implements Formatter {
     @Override
     public String format(List<Map<String, Object>> mapList) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); // cause serialization to be indented with spaces
         DefaultPrettyPrinter prettyPrinter = new DefaultPrettyPrinter();
-        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE);
-        return mapper.writer(prettyPrinter).writeValueAsString(mapList);
+        prettyPrinter.indentArraysWith(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE); // indent arrays with a separator
+        return mapper.writer(prettyPrinter).writeValueAsString(mapList); // serialize object through PrettyPrinter
     }
 
 }

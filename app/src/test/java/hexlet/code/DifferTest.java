@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class DifferTest {
@@ -69,8 +71,23 @@ class DifferTest {
         );
     }
 
-//    @Test
-//    void testEqualFiles() throws IOException {
-//
-//    }
+    @Test
+    void testEqualFiles() {
+        assertThrows(UnsupportedOperationException.class, () ->
+                Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_1, STYLISH_FORMAT));
+    }
+
+    @Test
+    void testDifferentExtensions() {
+    assertThrows(UnsupportedOperationException.class, () ->
+            Differ.generate(STR_YAML_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT));
+    }
+
+    @Test
+    void testWithoutStyle() throws IOException {
+        String expected = expectedStylish;
+        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2);
+        assertEquals(expected, actual);
+    }
+
 }

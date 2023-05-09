@@ -13,11 +13,11 @@ public enum ParamStatus {
         this.name = statusName;
     }
 
-    public String getName() {
+    public String getStatus() {
         return name;
     }
 
-    public static ParamStatus getByName(String name) {
+    public static ParamStatus getByStatus(String name) {
         return ParamStatus.valueOf(name.toUpperCase());
     }
 }

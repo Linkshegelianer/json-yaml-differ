@@ -22,29 +22,29 @@ public class DiffBuilder {
     }
 
     private static Map<String, Object> getKeyStatusMap(String key, Map<String, Object> map1, Map<String, Object> map2) {
-        Map<String, Object> resultMap = new LinkedHashMap<>();
+        Map<String, Object> resultMap = new LinkedHashMap<>(); // linked list of the entries in the map
         if (map1.containsKey(key) && map2.containsKey(key)) {
             Object oldValue = map1.get(key);
             Object newValue = map2.get(key);
             if (Objects.equals(oldValue, newValue)) {
                 resultMap.put("key", key);
-                resultMap.put("status", ParamStatus.UNMODIFIED.getName());
+                resultMap.put("status", ParamStatus.UNMODIFIED.getStatus());
                 resultMap.put("value", oldValue);
             } else {
                 resultMap.put("key", key);
-                resultMap.put("status", ParamStatus.UPDATED.getName());
+                resultMap.put("status", ParamStatus.UPDATED.getStatus());
                 resultMap.put("oldValue", oldValue);
                 resultMap.put("newValue", newValue);
             }
         } else if (map1.containsKey(key) && !map2.containsKey(key)) {
             Object oldValue = map1.get(key);
             resultMap.put("key", key);
-            resultMap.put("status", ParamStatus.DELETED.getName());
+            resultMap.put("status", ParamStatus.DELETED.getStatus());
             resultMap.put("value", oldValue);
         } else if (!map1.containsKey(key) && map2.containsKey(key)) {
             Object newValue = map2.get(key);
             resultMap.put("key", key);
-            resultMap.put("status", ParamStatus.ADDED.getName());
+            resultMap.put("status", ParamStatus.ADDED.getStatus());
             resultMap.put("value", newValue);
         }
         return resultMap;

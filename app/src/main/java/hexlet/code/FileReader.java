@@ -1,13 +1,17 @@
 package hexlet.code;
 
+import hexlet.code.parser.Parser;
+import hexlet.code.parser.ParserFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path; // create Path objects
-import java.nio.file.Paths; // work with Path objects
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
 
 public class FileReader {
 
-    public static String read(String pathString) throws RuntimeException, IOException {
+    public static String read(String pathString) throws RuntimeException {
         Path path = Paths.get(pathString).toAbsolutePath().normalize();
 
         if (!Files.exists(path)) {
@@ -25,10 +29,14 @@ public class FileReader {
 
     public static String getFileExtension(String fileName) {
         String extension = "";
-        int index = fileName.lastIndexOf('.'); // find last occurence of the . and return -1 if not found
-        if (index > 0) {
-            extension = fileName.substring(index + 1); // substract string after '.'
-        }
+        if (fileName.indexOf(".") > 0)
+            extension = fileName.substring(fileName.lastIndexOf(".") + 1);
         return extension;
+    }
+
+    public static Map<String, Object> getFileData(String pathString, String extension) throws IOException {
+        String content = FileReader.read(pathString);
+        Parser parser = ParserFactory.getParser(extension);
+        return parser.parse(content);
     }
 }

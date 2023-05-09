@@ -8,10 +8,10 @@ import java.util.Map;
 public final class StylishFormatter implements Formatter {
 
     private static final String NEW_LINE = System.lineSeparator();
-    private static final String PLUS_PREFIX = "  + ";
-    private static final String MINUS_PREFIX = "  - ";
-    private static final String NEUTRAL_PREFIX = "    ";
-    private static final String SPLITTER = ": ";
+    private static final String ADDED_PREFIX = "  + ";
+    private static final String DELETED_PREFIX = "  - ";
+    private static final String UNMODIFIED_PREFIX = "    ";
+    private static final String SEPARATOR = ": ";
 
     @Override
     public String format(List<Map<String, Object>> mapList) {
@@ -25,28 +25,28 @@ public final class StylishFormatter implements Formatter {
     private static String buildStylishLine(Map<String, Object> map) throws UnsupportedOperationException {
         StringBuilder sb = new StringBuilder();
         Object key = map.get("key");
-        String keyStatus = (String) map.get("status");
-        ParamStatus paramStatus = ParamStatus.getByName(keyStatus);
+        String status = (String) map.get("status");
+        ParamStatus paramStatus = ParamStatus.getByStatus(status);
         switch (paramStatus) {
             case ADDED -> {
                 Object value = map.get("value");
-                sb.append(PLUS_PREFIX).append(key).append(SPLITTER).append(value).append(NEW_LINE);
+                sb.append(ADDED_PREFIX).append(key).append(SEPARATOR).append(value).append(NEW_LINE);
             }
             case DELETED -> {
                 Object value = map.get("value");
-                sb.append(MINUS_PREFIX).append(key).append(SPLITTER).append(value).append(NEW_LINE);
+                sb.append(DELETED_PREFIX).append(key).append(SEPARATOR).append(value).append(NEW_LINE);
             }
             case UPDATED -> {
                 Object oldValue = map.get("oldValue");
                 Object newValue = map.get("newValue");
-                sb.append(MINUS_PREFIX).append(key).append(SPLITTER).append(oldValue).append(NEW_LINE);
-                sb.append(PLUS_PREFIX).append(key).append(SPLITTER).append(newValue).append(NEW_LINE);
+                sb.append(DELETED_PREFIX).append(key).append(SEPARATOR).append(oldValue).append(NEW_LINE);
+                sb.append(ADDED_PREFIX).append(key).append(SEPARATOR).append(newValue).append(NEW_LINE);
             }
             case UNMODIFIED -> {
                 Object value = map.get("value");
-                sb.append(NEUTRAL_PREFIX).append(key).append(SPLITTER).append(value).append(NEW_LINE);
+                sb.append(UNMODIFIED_PREFIX).append(key).append(SEPARATOR).append(value).append(NEW_LINE);
             }
-            default -> throw new UnsupportedOperationException("Stylish format: invalid parameter status!");
+            default -> throw new UnsupportedOperationException("Invalid parameter status!");
         }
         return sb.toString();
     }
