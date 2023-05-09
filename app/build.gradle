@@ -31,16 +31,14 @@ test {
 
 jacoco {
     toolVersion = "0.8.8"
-    reportsDirectory = layout.buildDirectory.dir('$buildDir/reports/jacoco')
 }
 
 jacocoTestReport {
     reports {
-        xml.required = false
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+        xml.required = true
     }
 }
+
 
 dependencies {
     implementation 'info.picocli:picocli:4.7.1'
