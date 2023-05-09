@@ -79,7 +79,7 @@ class DifferTest {
 
     @Test
     void testDifferentExtensions() {
-    assertThrows(UnsupportedOperationException.class, () ->
+        assertThrows(UnsupportedOperationException.class, () ->
             Differ.generate(STR_YAML_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT));
     }
 

@@ -29,8 +29,9 @@ public class FileReader {
 
     public static String getFileExtension(String fileName) {
         String extension = "";
-        if (fileName.indexOf(".") > 0)
+        if (fileName.indexOf(".") > 0) {
             extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        }
         return extension;
     }
 
