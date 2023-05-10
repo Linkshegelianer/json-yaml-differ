@@ -4,6 +4,12 @@ on:
   - push
   - pull_request
 
+name: Java CI
+
+on:
+  - push
+  - pull_request
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,21 +22,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Run chmod to make gradlew executable
-        run: chmod +x ./gradlew
-
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
           build-root-directory: app
 
-      - run: make -C app build
-      - run: make -C app test
-      - run: make -C app lint
+      - run: chmod +x app/gradlew
+      - run: make -C app run-dist
 
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v3.0.0
@@ -38,5 +37,5 @@ jobs:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: app/src/main/java
         with:
-          coverageCommand:  make -C app test-report
+          coverageCommand: make -С app report
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
