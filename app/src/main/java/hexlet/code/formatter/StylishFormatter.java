@@ -46,7 +46,7 @@ public final class StylishFormatter implements Formatter {
                 Object value = map.get("value");
                 sb.append(UNMODIFIED_PREFIX).append(key).append(SEPARATOR).append(value).append(NEW_LINE);
             }
-            default -> throw new UnsupportedOperationException("Invalid parameter status!");
+            default -> throw new UnsupportedOperationException("Invalid parameter status: '%s'!".formatted(status));
         }
         return sb.toString();
     }

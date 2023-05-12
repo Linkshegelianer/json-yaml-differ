@@ -33,7 +33,7 @@ public final class PlainFormatter implements Formatter {
                 }
                 case DELETED -> sj.add("Property '%s' was removed".formatted(key));
                 case UNMODIFIED -> { } // unmodified objects aren't shown in this format
-                default -> throw new UnsupportedOperationException("Invalid parameter status!");
+                default -> throw new UnsupportedOperationException("Invalid parameter status: '%s'!".formatted(status));
             }
         }
         return sj.toString();
