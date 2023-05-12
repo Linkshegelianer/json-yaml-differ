@@ -39,7 +39,7 @@ public final class PlainFormatter implements Formatter {
         return sj.toString();
     }
 
-    private static Object objectToString(Object object) {
+    private static String objectToString(Object object) {
         if (object instanceof String) {
             String stringObject = (String) object; // cast the object to a string
             String quotedString = "'%s'".formatted(stringObject); // add single quotes around the string
@@ -47,6 +47,6 @@ public final class PlainFormatter implements Formatter {
         } else if ((object instanceof ArrayList<?> || object instanceof LinkedHashMap<?, ?>)) {
             return COMPLEX_VALUE_STRING;
         }
-        return object;
+        return String.valueOf(object);
     }
 }
