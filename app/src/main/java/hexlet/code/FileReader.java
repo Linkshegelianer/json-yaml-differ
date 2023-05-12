@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class FileReader {
 
-    public static String read(String pathString) throws RuntimeException {
+    public static String read(String pathString) throws IOException {
         Path path = Paths.get(pathString).toAbsolutePath().normalize();
 
         if (!Files.exists(path)) {
@@ -19,11 +19,7 @@ public class FileReader {
         }
 
         String content = "";
-        try {
-            content = Files.readString(path);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        content = Files.readString(path);
         return content;
     }
 
