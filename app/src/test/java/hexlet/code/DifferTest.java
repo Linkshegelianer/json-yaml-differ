@@ -3,26 +3,19 @@ package hexlet.code;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 class DifferTest {
 
-    private static final String STR_JSON_PATH_1 = "src/test/resources/json/file1.json";
-    private static final String STR_JSON_PATH_2 = "src/test/resources/json/file2.json";
-
-    private static final String STR_YAML_PATH_1 = "src/test/resources/yaml/file1.yml";
-    private static final String STR_YAML_PATH_2 = "src/test/resources/yaml/file2.yml";
+    private static final String STR_FIXTURES_PATH = "src/test/resources/fixtures/";
     private static final String EXPECTED_STYLISH_PATH = "src/test/resources/expected/expectedStylish.txt";
 
     private static final String EXPECTED_PLAIN_PATH = "src/test/resources/expected/expectedPlain.txt";
@@ -38,7 +31,6 @@ class DifferTest {
     private static String expectedPlain;
     private static String expectedJson;
 
-
     @BeforeAll
     static void init() throws IOException {
         Path stylishFilePath = Paths.get(EXPECTED_STYLISH_PATH).toAbsolutePath().normalize();
@@ -50,44 +42,37 @@ class DifferTest {
     }
 
     @ParameterizedTest
-    @MethodSource("argsStyles")
-    void testJsonInput(String expected, String format) throws IOException {
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2, format);
-        assertEquals(expected, actual);
-    }
+    @ValueSource(strings = {"json", "yml"})
+    void testExtensions(String format) throws Exception {
+        String filePath1 = (STR_FIXTURES_PATH + "file1." + format);
+        String filePath2 = (STR_FIXTURES_PATH + "file2." + format);
 
-    @ParameterizedTest
-    @MethodSource("argsStyles")
-    void testYamlInput(String expected, String format) throws IOException {
-        String actual = Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_2, format);
-        assertEquals(expected, actual);
-    }
 
-    private static Stream<Arguments> argsStyles() {
-        return Stream.of(
-                arguments(expectedStylish, STYLISH_FORMAT),
-                arguments(expectedPlain, PLAIN_FORMAT),
-                arguments(expectedJson, JSON_FORMAT)
-        );
+        assertThat(Differ.generate(filePath1, filePath2))
+                .isEqualTo(expectedStylish); // default stylish
+
+        assertThat(Differ.generate(filePath1, filePath2, STYLISH_FORMAT))
+                .isEqualTo(expectedStylish);
+
+        assertThat(Differ.generate(filePath1, filePath2, PLAIN_FORMAT))
+                .isEqualTo(expectedPlain);
+
+        assertThat(Differ.generate(filePath1, filePath2, JSON_FORMAT))
+                .isEqualTo(expectedJson);
     }
 
     @Test
     void testEqualFiles() {
         assertThrows(UnsupportedOperationException.class, () ->
-                Differ.generate(STR_YAML_PATH_1, STR_YAML_PATH_1, STYLISH_FORMAT));
+                Differ.generate((STR_FIXTURES_PATH + "file1." + "yml"),
+                        (STR_FIXTURES_PATH + "file1." + "yml"), STYLISH_FORMAT));
     }
 
     @Test
     void testDifferentExtensions() {
         assertThrows(UnsupportedOperationException.class, () ->
-            Differ.generate(STR_YAML_PATH_1, STR_JSON_PATH_2, STYLISH_FORMAT));
-    }
-
-    @Test
-    void testWithoutStyle() throws IOException {
-        String expected = expectedStylish;
-        String actual = Differ.generate(STR_JSON_PATH_1, STR_JSON_PATH_2);
-        assertEquals(expected, actual);
+            Differ.generate((STR_FIXTURES_PATH + "file1." + "yml"),
+                    (STR_FIXTURES_PATH + "file1." + "json"), STYLISH_FORMAT));
     }
 
 }

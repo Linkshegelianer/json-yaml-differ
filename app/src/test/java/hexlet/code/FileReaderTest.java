@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FileReaderTest {
 
-    private static final String EXISTING_YAML_PATH = "src/test/resources/yaml/file1.yml";
-    private static final String NON_EXISTENT_PATH = "src/test/resources/yaml/file3.yml";
+    private static final String EXISTING_YAML_PATH = "src/test/resources/fixtures/file1.yml";
+    private static final String NON_EXISTENT_PATH = "src/test/resources/fixtures/file3.yml";
 
     @Test
     void testNonExistentPath() {
