@@ -1,6 +1,6 @@
 # File differ
 
-This repository contatins a command line utility which differs structured documents with .json and .yaml extensions. 
+This repository contains a command line utility which differs structured documents with .json and .yaml extensions. 
 This is an educational project written in Java, aimed at the practice of working with Java Collections, Gradle, JUnit, Github Actions.
 
 * **See how it works [here](https://asciinema.org/a/F6dxPQd1VmhuFD3qPPrvpaXQE).**
