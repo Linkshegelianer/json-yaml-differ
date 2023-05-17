@@ -11,7 +11,6 @@ import java.util.StringJoiner;
 public final class PlainFormatter implements Formatter {
 
     private static final String NEW_LINE = System.lineSeparator();
-    private static final String COMPLEX_VALUE_STRING = "[complex value]";
 
     @Override
     public String format(List<Map<String, Object>> mapList) {
@@ -45,7 +44,7 @@ public final class PlainFormatter implements Formatter {
             String quotedString = "'%s'".formatted(stringObject); // add single quotes around the string
             return quotedString;
         } else if ((object instanceof ArrayList<?> || object instanceof LinkedHashMap<?, ?>)) {
-            return COMPLEX_VALUE_STRING;
+            return "[complex value]";
         }
         return String.valueOf(object);
     }

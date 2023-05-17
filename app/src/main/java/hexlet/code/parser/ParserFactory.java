@@ -2,17 +2,17 @@ package hexlet.code.parser;
 
 public class ParserFactory {
 
-    private static final String JSON_EXTENSION = "json";
-    private static final String YAML_EXTENSION = "yaml";
+    private static final String JSON_FORMAT = "json";
+    private static final String YAML_FORMAT = "yaml";
 
-    private static final String YML_EXTENSION = "yml";
+    private static final String YML_FORMAT = "yml";
 
-    public static Parser getParser(String extension) {
+    public static Parser getParser(String dataFormat) {
         Parser parser;
-        parser = switch (extension) {
-            case JSON_EXTENSION -> new JsonParser();
-            case YAML_EXTENSION, YML_EXTENSION -> new YamlParser();
-            default -> throw new RuntimeException("File extension '%s' is not supported!".formatted(extension));
+        parser = switch (dataFormat) {
+            case JSON_FORMAT -> new JsonParser();
+            case YAML_FORMAT, YML_FORMAT -> new YamlParser();
+            default -> throw new RuntimeException("Data format '%s' is not supported!".formatted(dataFormat));
         };
         return parser;
     }
