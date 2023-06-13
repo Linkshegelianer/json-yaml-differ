@@ -1,4 +1,4 @@
-package hexlet.code.parser;
+package project.code.parser;
 
 public class ParserFactory {
 

@@ -1,4 +1,4 @@
-package hexlet.code;
+package project.code;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;

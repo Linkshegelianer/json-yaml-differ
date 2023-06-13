@@ -1,6 +1,6 @@
-package hexlet.code.formatter;
+package project.code.formatter;
 
-import hexlet.code.ParamStatus;
+import project.code.ParamStatus;
 
 import java.util.List;
 import java.util.Map;

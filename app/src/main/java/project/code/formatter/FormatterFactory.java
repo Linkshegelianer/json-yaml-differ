@@ -1,4 +1,4 @@
-package hexlet.code.formatter;
+package project.code.formatter;
 
 public class FormatterFactory {
 

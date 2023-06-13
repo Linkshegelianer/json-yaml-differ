@@ -1,4 +1,4 @@
-package hexlet.code;
+package project.code;
 
 public enum ParamStatus {
 

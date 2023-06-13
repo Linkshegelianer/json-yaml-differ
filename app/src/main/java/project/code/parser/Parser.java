@@ -1,4 +1,4 @@
-package hexlet.code.parser;
+package project.code.parser;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 

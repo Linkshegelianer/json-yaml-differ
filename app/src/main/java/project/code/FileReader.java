@@ -1,4 +1,4 @@
-package hexlet.code;
+package project.code;
 
 import java.io.IOException;
 import java.nio.file.Files;

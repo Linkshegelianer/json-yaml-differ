@@ -1,7 +1,7 @@
-package hexlet.code;
+package project.code;
 
-import hexlet.code.parser.Parser;
-import hexlet.code.parser.ParserFactory;
+import project.code.parser.Parser;
+import project.code.parser.ParserFactory;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
